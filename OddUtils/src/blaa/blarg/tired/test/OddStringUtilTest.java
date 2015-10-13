@@ -103,5 +103,11 @@ public class OddStringUtilTest {
 		String expectedReturn = "I r3sp3ct y0ur 0pini0n.\nlol just kidding.";
 		assertEquals(expectedReturn,OddStringUtil.get1337(phrase));
 	}
+	@Test
+	public void multiSpaceTest(){
+		String phrase = "I    respect your opinion.\nlol just kidding.";
+		String expectedReturn = "I    r3sp3ct y0ur 0pini0n.\nlol just kidding.";
+		assertEquals(expectedReturn,OddStringUtil.get1337(phrase));
+	}
 
 }
