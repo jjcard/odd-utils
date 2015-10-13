@@ -1,6 +1,8 @@
 package blaa.blarg.tired;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 /**
  * Util class to perform some trivial task with strings. Currently can:
  * <p><ul>
@@ -12,7 +14,7 @@ import java.util.HashMap;
 public class OddStringUtil {
 	
 	private static final CaseInsensitiveMap special1337words = getSpecial1337Map();
-	private static final String[] acronymToSkip = {"the", "a", "an"};
+	private static final CaseInsenstiveSet acronymToSkip = new CaseInsenstiveSet("the", "a", "an");
 	private static final String EMPTY_STRING = "";
 	private static final char PERIOD = '.';
 	
@@ -65,13 +67,7 @@ public class OddStringUtil {
 		return re.toString();
 	}
 	private static boolean skipForAcronym(String word){
-		
-		for (String skipWord: acronymToSkip){
-			if (word.equalsIgnoreCase(skipWord)){
-				return true;
-			}
-		}
-		return false;
+		return acronymToSkip.contains(word);
 	}
 	public static boolean isNumeric(String string){
 		if (OddStringUtil.isEmpty(string)){
@@ -199,7 +195,25 @@ public class OddStringUtil {
 		
 		return s1337Words;
 	}
-	
+	private static class CaseInsenstiveSet{
+		private final Set<String> set;
+		
+		public CaseInsenstiveSet(){
+			set = new HashSet<>();
+		}
+		public CaseInsenstiveSet(String...keys){
+			this();
+			for (String key: keys){
+				add(key);
+			}
+		}
+		public boolean contains(String key){
+			return set.contains(key == null? null: key.toUpperCase());
+		}
+		public boolean add(String key){
+			return set.add(key == null? null: key.toUpperCase());
+		}
+	}
 	private static class CaseInsensitiveMap extends HashMap<String, String>{
 		
 
