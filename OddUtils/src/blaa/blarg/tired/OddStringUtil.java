@@ -18,7 +18,7 @@ public class OddStringUtil {
 	/**
 	 * Same as calling getAcronym(phrase, true)
 	 * @param toTurn
-	 * @return
+	 * @return the Acronym
 	 * @see {@link getAcronym(String, boolean)}
 	 */
 	public static String getAcronym(String phrase){
@@ -30,7 +30,7 @@ public class OddStringUtil {
 	 * Should only be used on a phrase, whole sentences may not create desired outcome.
 	 * @param toTurn
 	 * @param usePeriods
-	 * @return
+	 * @return the Acronym
 	 */
 	public static String getAcronym(String phrase, boolean usePeriods){
 		if (OddStringUtil.isEmpty(phrase)){
@@ -56,9 +56,6 @@ public class OddStringUtil {
 			}
 		}
 		return re.toString();
-		
-		
-		
 	}
 	private static boolean skipForAcronym(String word){
 		
@@ -89,7 +86,7 @@ public class OddStringUtil {
 	 * @return
 	 */
 	public static boolean isEmpty(String e){
-		return e == null || e.trim().length() == 0;
+		return e == null || e.trim().isEmpty();
 	};
 	
 	public static String[] BreakUpLines(String string){
@@ -144,7 +141,6 @@ public class OddStringUtil {
 				} else {
 					re.append(transformWordTo1337(word));
 				}
-				
 			}			
 		}
 		
