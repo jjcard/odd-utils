@@ -1,7 +1,14 @@
 package blaa.blarg.tired;
 
 import java.util.HashMap;
-
+/**
+ * Util class to perform some trivial task with strings. Currently can:
+ * <p><ul>
+ * <li> Generate Acronyms (or initialism)
+ * <li>create a 1337 version of a phrase
+ * <li> split up sentences or words
+ * </ul><p>
+ */
 public class OddStringUtil {
 	
 	private static final CaseInsensitiveMap special1337words = getSpecial1337Map();
@@ -88,10 +95,19 @@ public class OddStringUtil {
 	public static boolean isEmpty(String e){
 		return e == null || e.trim().isEmpty();
 	};
-	
+	/**
+	 * breaks up lines by looking for new line characters
+	 * @param string
+	 * @return Array of all lines
+	 */
 	public static String[] BreakUpLines(String string){
 		return string.split("[\\n\\t]");
 	}
+	/**
+	 * breaks up words by looking for a single space between them
+	 * @param string
+	 * @return array of all 'words'
+	 */
 	public static String[] breakUpWords(String string){
 		return string.split(" ");
 	}
