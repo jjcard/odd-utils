@@ -12,7 +12,9 @@ public class OddStringUtil {
 	private static final char[] replace1337Chars = {'e', 'E', 'l', 'o', 'O'};
 	private static final char[] replace1337with  = {'3', '3', '1', '0', '0'};
 	
-	
+	private OddStringUtil(){
+		//private constructor, since its a util singleton
+	}
 	/**
 	 * Same as calling getAcronym(phrase, true)
 	 * @param toTurn
