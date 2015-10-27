@@ -1,45 +1,82 @@
 package blaa.blarg.tired.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import blaa.blarg.tired.CategoricalStatementUtil.CategoricalTypes;
+import blaa.blarg.tired.CategoricalStatementUtil;
+import blaa.blarg.tired.CategoricalStatementUtil.CategoricalType;
+import blaa.blarg.tired.CategoricalStatementUtil.Statement;
 
 public class CategoricalStatementUtilTest {
-	private static final String testPhrase = "All test are tests that pass.";
-	private static final  String notPhrase = "No test are tests that pass.";
+	private static final String testPhrase = "All tests are tests that pass.";
+	private static final  String notPhrase = "No tests are tests that pass.";
 	private static final  String somePhrase = "Some tests are tests that pass.";
 	private static final  String someNotPhrase = "Some tests are not tests that pass.";
 	@Test
 	public void aTest() {
 		
-		assertTrue(CategoricalTypes.A.matches(testPhrase));
-		assertFalse(CategoricalTypes.A.matches(notPhrase));
-		assertFalse(CategoricalTypes.A.matches(somePhrase));
-		assertFalse(CategoricalTypes.A.matches(someNotPhrase));
+		assertTrue(CategoricalType.A.matches(testPhrase));
+		assertFalse(CategoricalType.A.matches(notPhrase));
+		assertFalse(CategoricalType.A.matches(somePhrase));
+		assertFalse(CategoricalType.A.matches(someNotPhrase));
 	}
 	@Test
 	public void eTest() {
-		assertFalse(CategoricalTypes.E.matches(testPhrase));
-		assertTrue(CategoricalTypes.E.matches(notPhrase));
-		assertFalse(CategoricalTypes.E.matches(somePhrase));
-		assertFalse(CategoricalTypes.E.matches(someNotPhrase));
+		assertFalse(CategoricalType.E.matches(testPhrase));
+		assertTrue(CategoricalType.E.matches(notPhrase));
+		assertFalse(CategoricalType.E.matches(somePhrase));
+		assertFalse(CategoricalType.E.matches(someNotPhrase));
 	}
 	
 	@Test
 	public void iTest() {
-		assertFalse(CategoricalTypes.I.matches(testPhrase));
-		assertFalse(CategoricalTypes.I.matches(notPhrase));
-		assertTrue(CategoricalTypes.I.matches(somePhrase));
-		assertFalse(CategoricalTypes.I.matches(someNotPhrase));
+		assertFalse(CategoricalType.I.matches(testPhrase));
+		assertFalse(CategoricalType.I.matches(notPhrase));
+		assertTrue(CategoricalType.I.matches(somePhrase));
+		assertFalse(CategoricalType.I.matches(someNotPhrase));
 	}
 	@Test
 	public void oTest() {
-		assertFalse(CategoricalTypes.O.matches(testPhrase));
-		assertFalse(CategoricalTypes.O.matches(notPhrase));
-		assertFalse(CategoricalTypes.O.matches(somePhrase));
-		assertTrue(CategoricalTypes.O.matches(someNotPhrase));
+		assertFalse(CategoricalType.O.matches(testPhrase));
+		assertFalse(CategoricalType.O.matches(notPhrase));
+		assertFalse(CategoricalType.O.matches(somePhrase));
+		assertTrue(CategoricalType.O.matches(someNotPhrase));
+	}
+	@Test
+	public void aCompileTest(){
+		Statement result = CategoricalStatementUtil.compileStatement(testPhrase);
+		assertNotNull(result);
+		assertEquals(CategoricalType.A, result.getType());
+		assertEquals("tests", result.getSubject());
+		assertEquals("tests that pass.", result.getPredicate());
+	}
+	@Test
+	public void eCompileTest(){
+		Statement result = CategoricalStatementUtil.compileStatement(notPhrase);
+		assertNotNull(result);
+		assertEquals(CategoricalType.E, result.getType());
+		assertEquals("tests", result.getSubject());
+		assertEquals("tests that pass.", result.getPredicate());
+	}
+	@Test
+	public void iCompileTest(){
+		Statement result = CategoricalStatementUtil.compileStatement(somePhrase);
+		assertNotNull(result);
+		assertEquals(CategoricalType.I, result.getType());
+		assertEquals("tests", result.getSubject());
+		assertEquals("tests that pass.", result.getPredicate());
+	}
+	@Test
+	public void oCompileTest(){
+		Statement result = CategoricalStatementUtil.compileStatement(someNotPhrase);
+		assertNotNull(result);
+		assertEquals(CategoricalType.O, result.getType());
+		assertEquals("tests", result.getSubject());
+		assertEquals("tests that pass.", result.getPredicate());
 	}
 
 }
