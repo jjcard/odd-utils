@@ -11,6 +11,7 @@ import blaa.blarg.tired.CategoricalStatementUtil;
 import blaa.blarg.tired.CategoricalStatementUtil.CategoricalType;
 import blaa.blarg.tired.CategoricalStatementUtil.Statement;
 import blaa.blarg.tired.CategoricalStatementUtil.Syllogism;
+import blaa.blarg.tired.CategoricalStatementUtil.SyllogismParseException;
 
 public class CategoricalStatementUtilTest {
 	private static final String testPhrase = "All tests are tests that pass.";
@@ -21,6 +22,7 @@ public class CategoricalStatementUtilTest {
 	private static final String s1 = "All tests are tests that pass.";
 	private static final String s2 = "All tests that pass are tests that are easy to write.";
 	private static final String s3 = "All tests are tests that are easy to write.";
+	private static final String s3Therefore = "Therefore All tests are tests that are easy to write.";
 	@Test
 	public void aTest() {
 		
@@ -84,7 +86,7 @@ public class CategoricalStatementUtilTest {
 		assertEquals("tests that pass", result.getPredicate());
 	}
 	@Test
-	public void SyllogismTest(){
+	public void SyllogismTest() throws SyllogismParseException{
 		Syllogism s = CategoricalStatementUtil.compileSyllogism(s1, s2, s3);
 		
 		assertNotNull(s);
@@ -93,5 +95,13 @@ public class CategoricalStatementUtilTest {
 		assertEquals("tests that pass", s.getMiddleTerm());
 		
 	}
-
+	@Test
+	public void SyllogismThereforeTest() throws SyllogismParseException{
+		Syllogism s = CategoricalStatementUtil.compileSyllogism(s1, s2, s3Therefore);
+		assertNotNull(s);
+		assertEquals("tests that are easy to write", s.getMajorTerm());
+		assertEquals("tests", s.getMinorTerm());
+		assertEquals("tests that pass", s.getMiddleTerm());
+		
+	}
 }
