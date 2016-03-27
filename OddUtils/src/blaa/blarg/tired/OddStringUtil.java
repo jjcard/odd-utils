@@ -13,7 +13,15 @@ import java.util.Set;
  */
 public class OddStringUtil {
 	
-	private static final CaseInsensitiveMap special1337words = getSpecial1337Map();
+	private static final CaseInsensitiveMap special1337words = new CaseInsensitiveMap();
+	static {
+		String[] caseInsensitiveWords = { "elite", "1337", "the", "teh" };
+		special1337words.put(caseInsensitiveWords, true);
+
+		// adding LOL or else it would become 101
+		String[] caseSensitiveWords = { "THE", "TEH", "The", "Teh", "LOL", "LOL", "lol", "lol" };
+		special1337words.put(caseSensitiveWords, false);
+	}
 	private static final CaseInsenstiveSet acronymToSkip = new CaseInsenstiveSet("the", "a", "an");
 	private static final String EMPTY_STRING = "";
 	private static final char PERIOD = '.';
@@ -170,7 +178,6 @@ public class OddStringUtil {
 		for (int i = 0; i < replace1337Chars.length; i++){
 			returnWord = returnWord.replace(replace1337Chars[i], replace1337with[i]);
 		}
-		
 		return returnWord;
 	}
 	private static boolean isSpecial1337word(String word){
@@ -178,22 +185,6 @@ public class OddStringUtil {
 	}
 	private static String getSpecial1337word(String word){
 		return special1337words.getAny(word);
-	}
-
-	private static CaseInsensitiveMap getSpecial1337Map(){
-		CaseInsensitiveMap s1337Words = new CaseInsensitiveMap();
-		
-		String[] caseInsensitiveWords = {"elite", "1337", "the", "teh"};
-		s1337Words.put(caseInsensitiveWords, true);
-		
-		//adding LOL or else it would become 101
-		String[] caseSensitiveWords = {"THE", "TEH", "The", "Teh", "LOL", "LOL", "lol", "lol"};
-		s1337Words.put(caseSensitiveWords, false);
-		
-		
-		
-		
-		return s1337Words;
 	}
 	private static class CaseInsenstiveSet{
 		private final Set<String> set;
@@ -269,14 +260,7 @@ public class OddStringUtil {
 		 * @return
 		 */
 		public boolean containsAnyKey(String key){
-			boolean found = super.containsKey(key);
-			
-			if (!found){
-				found = super.containsKey(key.toLowerCase());
-			}
-			
-			return found;
-			
+			return super.containsKey(key)? true: super.containsKey(key.toLowerCase());
 		}
 		public boolean containsKey(String key, boolean caseInsensitive){
 			if (caseInsensitive){
